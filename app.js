@@ -2,11 +2,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 
+const usersRoute = require("./routes/users");
+
 const MONGODB_KEY = process.env.MONGODB_KEY;
 
 const app = express();
 
-mongoose.connect(MONGODB_KEY, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose
+  .connect(MONGODB_KEY, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch(() => console.log("Echec de connexion à MongoDB..."));
 
@@ -25,8 +28,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/api/", (req, res) => {
-  res.status(201).json({ message: "Tout a bien fonctionné !" })
-});
+app.use("/api/users/", usersRoute);
 
 module.exports = app;
