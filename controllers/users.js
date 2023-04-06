@@ -8,6 +8,6 @@ exports.userRouteTest = (req, res, next) => {
       accountType: req.body.accountType
     });
     user.save()
-      .then(() => res.status(201).json({ message: "Utilisateur créé" }))
+      .then(() => res.status(201).json({ message: "Utilisateur créé", id: user._id }))
       .catch( error => res.status(500).json({ error }));
 }
